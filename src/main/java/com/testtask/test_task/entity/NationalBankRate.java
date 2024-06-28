@@ -16,11 +16,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 public class NationalBankRate {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long curId;
     private LocalDate date;
     private String curAbbreviation;
