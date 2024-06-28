@@ -1,5 +1,6 @@
-package com.testtask.test_task.domain;
+package com.testtask.test_task.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,13 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CurrencyNationalBank {
+@Entity
+@Table(name = "tb_national_banks")
+public class NationalBankCurrency {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private int Cur_ID;
     private int Cur_ParentID;
     private String Cur_Code;
