@@ -1,20 +1,8 @@
-package com.testtask.test_task.entity;
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+package com.testtask.test_task.dto.nationalBank;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "tb_national_banks")
-public class NationalBankCurrency {
-    @Id
+public class CurrencyDto {
     private Long id;
     private Long parentId;
     private Integer code;

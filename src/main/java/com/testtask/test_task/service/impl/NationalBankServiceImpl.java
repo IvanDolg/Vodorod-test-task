@@ -1,10 +1,10 @@
 package com.testtask.test_task.service.impl;
 
-import com.testtask.test_task.entity.NationalBankCurrency;
-import com.testtask.test_task.entity.NationalBankRate;
+import com.testtask.test_task.entity.nationalBank.Currency;
+import com.testtask.test_task.entity.nationalBank.Rate;
 import com.testtask.test_task.feign.NationalBankApiClient;
-import com.testtask.test_task.repository.NationalBankCurrencyRepository;
-import com.testtask.test_task.repository.NationalBankRateRepository;
+import com.testtask.test_task.repository.nationalBank.CurrencyRepository;
+import com.testtask.test_task.repository.nationalBank.RateRepository;
 import com.testtask.test_task.service.NationalBankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,16 @@ public class NationalBankServiceImpl implements NationalBankService {
     private NationalBankApiClient nationalBankApiClient;
 
     @Autowired
-    private NationalBankCurrencyRepository currencyRepository;
+    private CurrencyRepository currencyRepository;
 
     @Autowired
-    private NationalBankRateRepository rateRepository;
+    private RateRepository rateRepository;
 
     @Override
     public void loadCurrencies() {
         List<Map<String, Object>> currencies = nationalBankApiClient.getCurrencies();
         for (Map<String, Object> currencyData : currencies) {
-            NationalBankCurrency currency = new NationalBankCurrency();
+            Currency currency = new Currency();
             currency.setId(Long.parseLong(currencyData.get("Cur_ID").toString()));
             currency.setParentId(currencyData.containsKey("Cur_ParentID") ? Long.parseLong(currencyData.get("Cur_ParentID").toString()) : null);
             currency.setCode((Integer) currencyData.get("Cur_Code"));
@@ -60,7 +60,7 @@ public class NationalBankServiceImpl implements NationalBankService {
         LocalDate localDate = LocalDate.parse(date, formatter);
 
         for (Map<String, Object> rateData : rates) {
-            NationalBankRate rate = new NationalBankRate();
+            Rate rate = new Rate();
             rate.setCurId(Long.parseLong(rateData.get("Cur_ID").toString()));
             rate.setDate(localDate);
             rate.setCurAbbreviation((String) rateData.get("Cur_Abbreviation"));
@@ -73,7 +73,7 @@ public class NationalBankServiceImpl implements NationalBankService {
     }
 
     @Override
-    public NationalBankRate getRate(String date, String currencyCode) {
+    public Rate getRate(String date, String currencyCode) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(date, formatter);
         return rateRepository.findByCurAbbreviationAndDate(currencyCode, localDate).orElse(null);

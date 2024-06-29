@@ -1,9 +1,9 @@
 package com.testtask.test_task.service;
 
-import com.testtask.test_task.entity.NationalBankRate;
+import com.testtask.test_task.entity.nationalBank.Rate;
 
 public interface NationalBankService {
     void loadCurrencies();
     void loadRates(String date);
-    NationalBankRate getRate(String date, String currencyCode);
+    Rate getRate(String date, String currencyCode);
 }

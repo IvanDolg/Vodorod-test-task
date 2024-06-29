@@ -1,6 +1,6 @@
 package com.testtask.test_task.controller;
 
-import com.testtask.test_task.entity.NationalBankRate;
+import com.testtask.test_task.entity.nationalBank.Rate;
 import com.testtask.test_task.service.NationalBankService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class RateController {
     }
 
     @GetMapping
-    public NationalBankRate getRate(@RequestParam String date, @RequestParam String currencyCode) {
+    public Rate getRate(@RequestParam String date, @RequestParam String currencyCode) {
         return nationalBankService.getRate(date, currencyCode);
     }
 }

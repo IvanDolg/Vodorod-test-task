@@ -1,10 +1,9 @@
-package com.testtask.test_task.dto;
+package com.testtask.test_task.dto.nationalBank;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-public class NationalBankRateDto {
+public class RateDto {
     private Long id;
     private Long curId;
     private LocalDate date;
