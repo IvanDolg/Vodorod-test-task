@@ -4,6 +4,7 @@ import com.testtask.test_task.dto.nationalBank.CurrencyDto;
 import com.testtask.test_task.dto.nationalBank.RateDto;
 import com.testtask.test_task.entity.nationalBank.Currency;
 import com.testtask.test_task.entity.nationalBank.Rate;
+import com.testtask.test_task.exception.ResourceNotFoundException;
 import com.testtask.test_task.feign.NationalBankApiClient;
 import com.testtask.test_task.mapper.nationalBank.AutoCurrencyMapper;
 import com.testtask.test_task.mapper.nationalBank.AutoRateMapper;
@@ -19,7 +20,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -107,12 +107,11 @@ public class NationalBankServiceImpl implements NationalBankService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(date, formatter);
 
-        Optional<Rate> optionalRate = rateRepository.findByCurAbbreviationAndDate(currencyCode, localDate);
+        Rate optionalRate = rateRepository.findByCurAbbreviationAndDate(currencyCode, localDate).orElseThrow(
+                () -> new ResourceNotFoundException("Rate", "currency code", currencyCode, "date", date)
+        );
 
-        if (optionalRate.isEmpty()) {
-            throw new IllegalArgumentException("Rate for " + currencyCode + " on " + date + " does not exist");
-        }
 
-        return AutoRateMapper.MAPPER.mapToRateDto(optionalRate.get());
+        return AutoRateMapper.MAPPER.mapToRateDto(optionalRate);
     }
 }
