@@ -1,7 +1,15 @@
 package com.testtask.test_task.dto.nationalBank;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CurrencyDto {
     private Long id;
     private Long parentId;

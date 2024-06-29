@@ -1,9 +1,6 @@
 package com.testtask.test_task.entity.nationalBank;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "tb_national_bank_rate")
 public class Rate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

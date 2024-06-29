@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_national_banks")
+@Table(name = "tb_national_bank_currency")
 public class Currency {
     @Id
     private Long id;

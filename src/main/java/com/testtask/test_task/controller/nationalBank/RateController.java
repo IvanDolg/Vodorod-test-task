@@ -1,9 +1,10 @@
-package com.testtask.test_task.controller;
+package com.testtask.test_task.controller.nationalBank;
 
-import com.testtask.test_task.entity.nationalBank.Rate;
+import com.testtask.test_task.dto.nationalBank.RateDto;
 import com.testtask.test_task.service.NationalBankService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,13 +19,15 @@ public class RateController {
     private NationalBankService nationalBankService;
 
     @GetMapping("/rates")
-    public String loadRates(@RequestParam String date) {
+    public ResponseEntity<String> loadRates(@RequestParam String date) {
         nationalBankService.loadRates(date);
-        return "Rates loaded successfully for date: " + date;
+        return ResponseEntity.ok("Rates loaded successfully for date: " + date);
     }
 
     @GetMapping
-    public Rate getRate(@RequestParam String date, @RequestParam String currencyCode) {
-        return nationalBankService.getRate(date, currencyCode);
+    public ResponseEntity<RateDto> getRate(@RequestParam String date,
+                                           @RequestParam String currencyCode) {
+        RateDto rateDto = nationalBankService.getRate(date, currencyCode);
+        return ResponseEntity.ok(rateDto);
     }
 }
