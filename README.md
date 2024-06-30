@@ -5,3 +5,6 @@ Vodorod Test task
 
 - Проверка работоспособности запросов Postman (ссылка)
     https://documenter.getpostman.com/view/31186923/2sA3duHDrj
+
+- Запуск приложения с помощью Docker (ссылка на DockerHub)
+    https://hub.docker.com/repository/docker/ivandolg/vodorod-test-task/tags 
