@@ -34,8 +34,8 @@ public class NationalBankServiceImpl implements NationalBankService {
         List<Map<String, Object>> currencies = nationalBankApiClient.getCurrencies();
 
         for (Map<String, Object> currencyData : currencies) {
-            CurrencyDto currencyDto = new CurrencyDto();
 
+            CurrencyDto currencyDto = new CurrencyDto();
             currencyDto.setId(Long.parseLong(currencyData.get("Cur_ID").toString()));
             currencyDto.setParentId(currencyData.containsKey("Cur_ParentID") ? Long.parseLong(currencyData.get("Cur_ParentID").toString()) : null);
             currencyDto.setCode(Integer.parseInt(currencyData.get("Cur_Code").toString()));
