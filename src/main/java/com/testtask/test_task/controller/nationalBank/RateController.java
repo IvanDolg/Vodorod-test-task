@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(
         name = "Rates",
@@ -33,8 +30,8 @@ public class RateController {
             responseCode = "200",
             description = "Rates loaded successfully for the specified date"
     )
-    @GetMapping("/rates")
-    public ResponseEntity<String> loadRates(@RequestParam String date) {
+    @GetMapping("/rates/{date}")
+    public ResponseEntity<String> loadRates(@PathVariable("date") String date) {
         nationalBankService.loadRates(date);
         return ResponseEntity.ok("Rates loaded successfully for date: " + date);
     }
@@ -48,9 +45,9 @@ public class RateController {
             responseCode = "200",
             description = "Rate retrieved successfully"
     )
-    @GetMapping
-    public ResponseEntity<RateDto> getRate(@RequestParam String date,
-                                           @RequestParam String currencyCode) {
+    @GetMapping("/{date}/{currency-code}")
+    public ResponseEntity<RateDto> getRate(@PathVariable("date") String date,
+                                           @PathVariable("currency-code") String currencyCode) {
         RateDto rateDto = nationalBankService.getRate(date, currencyCode);
         return ResponseEntity.ok(rateDto);
     }

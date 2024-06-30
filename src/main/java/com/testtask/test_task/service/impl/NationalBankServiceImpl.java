@@ -20,6 +20,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -79,6 +81,18 @@ public class NationalBankServiceImpl implements NationalBankService {
         }
     }
 
+    @Override
+    public List<CurrencyDto> getCurrencyByAbbreviation(String abbreviation) {
+        List<Currency> currency = currencyRepository.findByAbbreviation(abbreviation);
+
+        if (currency.isEmpty()) {
+            // FIXME: fix a variable number of parameters in error handling
+            throw new ResourceNotFoundException("Currency", "abbreviation", abbreviation, "abbreviation", abbreviation);
+        }
+        return currency.stream()
+                .map(AutoCurrencyMapper.MAPPER::mapToCurrencyDto)
+                .collect(Collectors.toList());
+    }
 
 
     @Override
